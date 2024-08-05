@@ -1,9 +1,6 @@
 import { ServerRespond } from './DataStreamer';
 
 export interface Row {
-  // stock: string,
-  // top_ask_price: number,
-  // timestamp: Date,
   price_abc: number,
   price_def: number,
   ratio: number,
@@ -16,7 +13,7 @@ export interface Row {
 
 
 export class DataManipulator {
-  static generateRow(serverRespond: ServerRespond[]) {
+  static generateRow(serverRespond: ServerRespond[]): Row {
     const priceABC = (serverRespond[0].top_ask.price + serverRespond[0].top_bid.price) / 2;
     const priceDEF = (serverRespond[1].top_ask.price + serverRespond[1].top_bid.price) / 2;
     const ratio = priceABC / priceDEF;
@@ -24,9 +21,6 @@ export class DataManipulator {
     const lowerBound = 1 - 0.05;
 
     return {
-      // stock: el.stock,
-      // top_ask_price: el.top_ask && el.top_ask.price || 0,
-      // timestamp: el.timestamp,
       price_abc: priceABC,
       price_def: priceDEF,
       ratio,
